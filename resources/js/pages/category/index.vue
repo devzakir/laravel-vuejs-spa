@@ -65,7 +65,7 @@ export default {
                     message:'Category deleted successfully.'
                 });
             });
-            
+
             let index = this.categories.indexOf(category);
             this.categories.splice(index, 1);
         }
