@@ -8,7 +8,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
                     </li>
                     <li class="nav-item">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -35,7 +36,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255|unique:products,title',
+            'price' => 'required|integer',
+            'image' => 'required|image|max:2048',
+            'description' => 'required'
+        ]);
+
+        $product = Product::create([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'price' => $request->price,
+            // 'image' => 'image',
+            'description' => $request->description,
+        ]);
+
+        if($request->image){
+            $imageName = time().'_'. uniqid() .'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('storage/product'), $imageName);
+            $product->image = '/storage/product/' . $imageName;
+            $product->save();
+        }
+
+        return response()->json($product, 200);
     }
 
     /**

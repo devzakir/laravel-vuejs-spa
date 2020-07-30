@@ -13,6 +13,7 @@ import EditProduct from '../pages/product/edit.vue'
 
 const routes = new VueRouter({
     mode: 'history',
+    linkExactActiveClass: 'active',
     routes: [
         {
             path: '/',
