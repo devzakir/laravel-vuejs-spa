@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">Product Image</label>
-                                        <input type="file" class="form-control-file" @change="onImageChange" :class="{ 'is-invalid': productForm.errors.has('image') }">
+                                        <input type="file" class="form-control-file"  @change="onImageChange" :class="{ 'is-invalid': productForm.errors.has('image') }">
                                         <has-error :form="productForm" field="image"></has-error>
                                     </div>
                                     <div class="form-group">
@@ -78,7 +78,7 @@ export default {
                 this.$toast.success({
                     title:'Success!',
                     message:'Product Uploaded successfully.'
-                })
+                });
             })
         },
         onImageChange(e){
