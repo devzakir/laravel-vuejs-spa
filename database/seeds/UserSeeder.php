@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
         App\User::create([
             'name' => 'Zakir Hossen',
             'email' => 'web.zakirbd@gmail.com',
-            'password' => bcrypt('12345678'),
+            'password' => bcrypt('password'),
         ]);
     }
 }
