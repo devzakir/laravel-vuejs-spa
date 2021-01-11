@@ -13,7 +13,8 @@
                             <thead>
                                 <tr>
                                     <th style="width: 100px"> Id </th>
-                                    <th> Name </th>
+                                    <th> Image </th>
+                                    <th> Title </th>
                                     <th> Slug </th>
                                     <th style="width: 170px"> Action </th>
                                 </tr>
@@ -21,7 +22,12 @@
                             <tbody v-if="products.length">
                                 <tr v-for="product in products" :key="product.id">
                                     <td style="width: 100px"> {{ product.id }} </td>
-                                    <td> {{ product.name }} </td>
+                                    <td> 
+                                        <div style="max-width: 150px; max-height: 150px; overflow:hidden">
+                                            <img :src="product.image" alt="" class="img-fluid">
+                                        </div>    
+                                    </td>
+                                    <td> {{ product.title }} </td>
                                     <td> {{ product.slug }} </td>
                                     <td style="width: 170px">
                                         <router-link :to="{name: 'edit-product', params: {id: product.id}}" class="btn btn-primary btn-sm">Edit</router-link>
@@ -71,7 +77,7 @@ export default {
         }
     },
     mounted() {
-
+        this.loadProducts();
     }
 }
 </script>
