@@ -64,16 +64,16 @@ export default {
             });
         },
 
-        deleteProduct(product){
-            // axios.delete(`/api/category/${category.id}`).then(() => {
-            //     this.$toast.success({
-            //         title:'Success!',
-            //         message:'Category deleted successfully.'
-            //     });
-            // });
+        async deleteProduct(product){
+            await axios.delete(`/api/product/${product.id}`).then(() => {
+                this.$toast.success({
+                    title:'Success!',
+                    message:'Product deleted successfully.'
+                });
+            });
 
-            // let index = this.categories.indexOf(category);
-            // this.categories.splice(index, 1);
+            let index = this.products.indexOf(product);
+            this.products.splice(index, 1);
         }
     },
     mounted() {
