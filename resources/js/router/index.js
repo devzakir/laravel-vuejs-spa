@@ -11,6 +11,9 @@ import ProductList from '../pages/product/index.vue'
 import CreateProduct from '../pages/product/create.vue'
 import EditProduct from '../pages/product/edit.vue'
 
+// Dashboard Component
+import Dashboard from '../pages/dashboard/index.vue'
+
 // Authentication File
 import Login from '../pages/auth/Login.vue'
 
@@ -58,6 +61,11 @@ const routes = new VueRouter({
             component: Login,
             name: 'login',
         },
+        {
+            path: '/dashboard',
+            component: Dashboard,
+            name: 'dashboard',
+        }
     ]
 });
 
