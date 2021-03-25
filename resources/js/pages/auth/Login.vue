@@ -9,14 +9,16 @@
                                 Login
                             </div>
                             <div class="card-body">
-                                <form action="" method="post" @click.prevent="login()">
+                                <form action="" method="post" @submit.prevent="login()">
                                     <div class="form-group">
                                         <label for="">Email</label>
-                                        <input type="text" class="form-control" placeholder="email">
+                                        <input type="text" v-model="loginForm.email" class="form-control" placeholder="email" :class="{ 'is-invalid': loginForm.errors.has('email') }">
+                                        <has-error :form="loginForm" field="email"></has-error>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Password</label>
-                                        <input type="text" class="form-control" placeholder="password">
+                                        <input type="password" v-model="loginForm.password" class="form-control" placeholder="password" :class="{ 'is-invalid': loginForm.errors.has('password') }" >  
+                                        <has-error :form="loginForm" field="password"></has-error>                                       
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-success px-4">Login</button>
@@ -32,27 +34,41 @@
 </template>
 
 <script>
+import { Form } from 'vform'
+
 export default {
+    data(){
+        return {
+            loginForm: new Form({
+                email: 'web.zakirbd@gmail.com',
+                password: 'password',
+            }),
+        }
+    },
     methods: {
         login(){
             axios.get('/sanctum/csrf-cookie').then(response => {
-                console.log('hello');
-                axios.post('/login', {
-                    email: 'web.zakirbd@gmail.com',
-                    password: 'password',
-                }).then(response => {
-                    console.log(response);
+                this.loginForm.post('/login').then(response => {
+                    this.getUserData();
+
+                    this.$toast.success({
+                        title:'Success!',
+                        message:'Welcome, Dear!'
+                    });
+                    
+                    this.$router.push({ name: 'dashboard' });
                 });
             });
         },
         getUserData(){
             axios.get('/api/user').then(response => {
-                console.log(response.data);
+                let user = response.data;
+                this.$store.commit('SET_USER', user);
             });
         }
     },
     mounted(){ 
-        this.getUserData();
+        
     }
 }
 </script>
