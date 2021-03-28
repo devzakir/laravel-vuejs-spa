@@ -2337,6 +2337,10 @@ __webpack_require__.r(__webpack_exports__);
           message: 'Logout Successful!'
         });
 
+        localStorage.removeItem("auth");
+
+        _this.$store.commit('SET_AUTHENTICATED', false);
+
         _this.$router.push({
           name: 'login'
         });
