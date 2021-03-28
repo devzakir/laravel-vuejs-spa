@@ -58858,7 +58858,41 @@ var toastrConfigs = {
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(cxlt_vue2_toastr__WEBPACK_IMPORTED_MODULE_4___default.a, toastrConfigs);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_2__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["AlertError"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('app-header', __webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue")["default"]); // check authentication
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('app-header', __webpack_require__(/*! ./components/Header.vue */ "./resources/js/components/Header.vue")["default"]); // Vue Router Nagivation Guard
+
+function isLoggedIn() {
+  return _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].getters.getAuthenticated;
+}
+
+_router_index__WEBPACK_IMPORTED_MODULE_1__["default"].beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!isLoggedIn()) {
+      next({
+        name: 'login'
+      });
+    } else {
+      next();
+    }
+  } else if (to.matched.some(function (record) {
+    return record.meta.requiresVisitor;
+  })) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (isLoggedIn()) {
+      next({
+        name: 'dashboard'
+      });
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+}); // check authentication
 
 var auth = localStorage.getItem("auth");
 
@@ -59661,11 +59695,17 @@ var routes = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/auth/login',
     component: _pages_auth_Login_vue__WEBPACK_IMPORTED_MODULE_10__["default"],
-    name: 'login'
+    name: 'login',
+    meta: {
+      requiresVisitor: true
+    }
   }, {
     path: '/dashboard',
     component: _pages_dashboard_index_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
-    name: 'dashboard'
+    name: 'dashboard',
+    meta: {
+      requiresAuth: true
+    }
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (routes);
