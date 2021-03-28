@@ -13,6 +13,7 @@ import EditProduct from '../pages/product/edit.vue'
 
 // Dashboard Component
 import Dashboard from '../pages/dashboard/index.vue'
+import UserProfile from '../pages/dashboard/profile.vue'
 
 // Authentication File
 import Login from '../pages/auth/Login.vue'
@@ -68,6 +69,14 @@ const routes = new VueRouter({
             path: '/dashboard',
             component: Dashboard,
             name: 'dashboard',
+            meta: {
+                requiresAuth: true,
+            }
+        },
+        {
+            path: '/dashboard/profile',
+            component: UserProfile,
+            name: 'user-profile',
             meta: {
                 requiresAuth: true,
             }

@@ -3,7 +3,8 @@
       <div class="row">
           <div class="col-4">
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">Demo Link</a>
+                <router-link :to="{ name: 'dashboard' }" class="list-group-item list-group-item-action">Dashboard</router-link>
+                <router-link :to="{ name: 'user-profile' }" class="list-group-item list-group-item-action">User Profile</router-link>
                 <a href="#" class="list-group-item list-group-item-action" @click.prevent="logout">Logout</a>
             </div>
           </div>
