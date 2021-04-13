@@ -23,6 +23,10 @@
                     <li class="nav-item" v-if="!auth">
                         <router-link class="nav-link" :to="{name: 'login' }">Login</router-link>
                     </li>
+                    
+                    <li class="nav-item" v-if="!auth">
+                        <router-link class="nav-link" :to="{name: 'signup' }">Signup</router-link>
+                    </li>
                 </ul>
             </div>
         </div>
