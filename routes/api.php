@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('category', 'CategoryController');
-Route::resource('product', 'ProductController');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
@@ -23,4 +21,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::post('user', 'AuthController@update_user');
+    Route::resource('category', 'CategoryController');
+    Route::resource('product', 'ProductController');
 });
+
+
+Route::get('products', 'PublicAPIController@products');

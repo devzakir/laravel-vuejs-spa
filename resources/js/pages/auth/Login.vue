@@ -21,7 +21,7 @@
                                         <has-error :form="loginForm" field="password"></has-error>                                       
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success px-4">Login</button>
+                                        <button type="submit" :disabled="loginForm.busy" class="btn btn-success px-4">Login</button>
                                     </div>
                                 </form>
                             </div>
@@ -46,22 +46,20 @@ export default {
         }
     },
     methods: {
-        login(){
-            axios.get('/sanctum/csrf-cookie').then(response => {
-                this.loginForm.post('/login').then(response => {
-                    this.getUserData();
+        async login(){
+            await axios.get('/sanctum/csrf-cookie')
+            await this.loginForm.post('/login')
+            await this.getUserData();
 
-                    this.$toast.success({
-                        title:'Success!',
-                        message:'Welcome, Dear!'
-                    });
-                    
-                    this.$router.push({ name: 'dashboard' });
-                });
+            this.$toast.success({
+                title:'Success!',
+                message:'Welcome, Dear!'
             });
+            
+            this.$router.push({ name: 'dashboard' });
         },
-        getUserData(){
-            axios.get('/api/user').then(response => {
+        async getUserData(){
+            await axios.get('/api/user').then(response => {
                 let user = response.data;
                 this.$store.commit('SET_USER', user);
                 this.$store.commit('SET_AUTHENTICATED', true);

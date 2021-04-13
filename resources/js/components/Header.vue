@@ -7,7 +7,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto" v-if="auth">
                     <li class="nav-item">
                         <router-link :to="{name: 'home'}" class="nav-link">Home</router-link>
                     </li>
@@ -17,14 +17,15 @@
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{name: 'product-list' }">Product List</router-link>
                     </li>
-                    <li class="nav-item" v-if="auth">
+                    <li class="nav-item">
                         <router-link class="nav-link" :to="{name: 'dashboard' }">Dashboard</router-link>
                     </li>
-                    <li class="nav-item" v-if="!auth">
+                </ul>
+                <ul class="navbar-nav ml-auto" v-else>
+                    <li class="nav-item">
                         <router-link class="nav-link" :to="{name: 'login' }">Login</router-link>
                     </li>
-                    
-                    <li class="nav-item" v-if="!auth">
+                    <li class="nav-item">
                         <router-link class="nav-link" :to="{name: 'signup' }">Signup</router-link>
                     </li>
                 </ul>

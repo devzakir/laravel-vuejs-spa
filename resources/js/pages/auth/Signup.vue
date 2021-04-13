@@ -31,7 +31,7 @@
                                         <has-error :form="signupForm" field="password_confirmation"></has-error>                                       
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-success px-4">Create an Account</button>
+                                        <button type="submit" :disabled="signupForm.busy" class="btn btn-success px-4">Create an Account</button>
                                     </div>
                                 </form>
                             </div>
