@@ -33,14 +33,14 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="">Your Password</label>
-                                        <input type="text" class="form-control" placeholder="Your password" v-model="userProfile.password" :class="{ 'is-invalid': userProfile.errors.has('password') }">
+                                        <input type="password" class="form-control" placeholder="Your password" v-model="userProfile.password" :class="{ 'is-invalid': userProfile.errors.has('password') }">
                                         <has-error :form="userProfile" field="password"></has-error>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="">Confirm Password</label>
-                                        <input type="text" class="form-control" placeholder="Confirm password" v-model="userProfile.password_confirmation" :class="{ 'is-invalid': userProfile.errors.has('password_confirmation') }">
+                                        <input type="password" class="form-control" placeholder="Confirm password" v-model="userProfile.password_confirmation" :class="{ 'is-invalid': userProfile.errors.has('password_confirmation') }">
                                         <has-error :form="userProfile" field="password_confirmation"></has-error>
                                     </div>
                                 </div>

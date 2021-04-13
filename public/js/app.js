@@ -41888,7 +41888,10 @@ var render = function() {
                           class: {
                             "is-invalid": _vm.userProfile.errors.has("password")
                           },
-                          attrs: { type: "text", placeholder: "Your password" },
+                          attrs: {
+                            type: "password",
+                            placeholder: "Your password"
+                          },
                           domProps: { value: _vm.userProfile.password },
                           on: {
                             input: function($event) {
@@ -41937,7 +41940,7 @@ var render = function() {
                             )
                           },
                           attrs: {
-                            type: "text",
+                            type: "password",
                             placeholder: "Confirm password"
                           },
                           domProps: {

@@ -21,7 +21,7 @@ class AuthController extends Controller
             'email' => $request->email,
         ]);
 
-        if ($request->has('password')) {
+        if ($request->password) {
             $user->update([
                 'password' => bcrypt($request->password)
             ]);
