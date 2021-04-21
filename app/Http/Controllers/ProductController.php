@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->get();
+        $products = Product::with('category')->latest()->get();
 
         return response()->json($products, 200);
     }
@@ -42,7 +42,8 @@ class ProductController extends Controller
             'title' => 'required|max:255|unique:products,title',
             'price' => 'required|integer',
             'image' => 'required|image|max:2048',
-            'description' => 'required'
+            'description' => 'required',
+            'category_id' => 'required',
         ]);
 
         $product = Product::create([
@@ -50,10 +51,11 @@ class ProductController extends Controller
             'slug' => Str::slug($request->title),
             'price' => $request->price,
             'description' => $request->description,
+            'category_id' => $request->category_id,
         ]);
 
-        if($request->image){
-            $imageName = time().'_'. uniqid() .'.'.$request->image->getClientOriginalExtension();
+        if ($request->image) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('storage/product'), $imageName);
             $product->image = '/storage/product/' . $imageName;
             $product->save();
@@ -92,12 +94,13 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
-    {   
+    {
         $this->validate($request, [
             'title' => "required|max:255|unique:products,title, $product->id",
             'price' => 'required|integer',
             'image' => 'sometimes|nullable|image|max:2048',
-            'description' => 'required'
+            'description' => 'required',
+            'category_id' => 'required',
         ]);
 
         $product->update([
@@ -105,10 +108,11 @@ class ProductController extends Controller
             'slug' => Str::slug($request->title),
             'price' => $request->price,
             'description' => $request->description,
+            'category_id' => $request->category_id,
         ]);
 
-        if($request->image){
-            $imageName = time().'_'. uniqid() .'.'.$request->image->getClientOriginalExtension();
+        if ($request->image) {
+            $imageName = time() . '_' . uniqid() . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('storage/product'), $imageName);
             $product->image = '/storage/product/' . $imageName;
             $product->save();
@@ -125,16 +129,16 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        if($product){
+        if ($product) {
             $productImage = $product->image;
             $imagePath = public_path($productImage);
-            
-            if($productImage && file_exists($imagePath)){
+
+            if ($productImage && file_exists($imagePath)) {
                 unlink($imagePath);
             }
 
             $product->delete();
-        }else {
+        } else {
             return response()->json('Product not found.', 404);
         }
     }

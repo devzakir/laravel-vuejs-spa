@@ -2835,6 +2835,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2843,9 +2852,11 @@ __webpack_require__.r(__webpack_exports__);
       productForm: new vform__WEBPACK_IMPORTED_MODULE_0__["Form"]({
         title: '',
         price: '',
+        category_id: '',
         image: '',
         description: ''
-      })
+      }),
+      categories: []
     };
   },
   methods: {
@@ -2877,7 +2888,17 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0]; // Do some client side validation...
 
       this.productForm.image = file;
+    },
+    loadCategories: function loadCategories() {
+      var _this2 = this;
+
+      axios.get('/api/category').then(function (response) {
+        _this2.categories = response.data;
+      });
     }
+  },
+  mounted: function mounted() {
+    this.loadCategories();
   }
 });
 
@@ -2950,6 +2971,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2962,7 +2992,8 @@ __webpack_require__.r(__webpack_exports__);
         description: '',
         _method: 'put'
       }),
-      image: ''
+      image: '',
+      categories: []
     };
   },
   methods: {
@@ -2975,6 +3006,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.productForm.title = product.title;
         _this.productForm.price = product.price;
         _this.productForm.description = product.description;
+        _this.productForm.category_id = product.category_id;
         _this.image = product.image;
       });
     },
@@ -3004,10 +3036,18 @@ __webpack_require__.r(__webpack_exports__);
       var file = e.target.files[0]; // Do some client side validation...
 
       this.productForm.image = file;
+    },
+    loadCategories: function loadCategories() {
+      var _this3 = this;
+
+      axios.get('/api/category').then(function (response) {
+        _this3.categories = response.data;
+      });
     }
   },
   mounted: function mounted() {
     this.loadProductData();
+    this.loadCategories();
   }
 });
 
@@ -3030,6 +3070,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -42723,6 +42766,83 @@ var render = function() {
                       { staticClass: "form-group" },
                       [
                         _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Select Product Category")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.productForm.category_id,
+                                expression: "productForm.category_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.productForm.errors.has(
+                                "category_id"
+                              )
+                            },
+                            attrs: { name: "category_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.productForm,
+                                  "category_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                staticStyle: { display: "none" },
+                                attrs: { value: "", selected: "" }
+                              },
+                              [_vm._v("Select Category")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.categories, function(category) {
+                              return _c(
+                                "option",
+                                {
+                                  key: category.id,
+                                  domProps: { value: category.id }
+                                },
+                                [_vm._v(" " + _vm._s(category.name))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.productForm, field: "category_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
                           _vm._v("Product Price")
                         ]),
                         _vm._v(" "),
@@ -42980,6 +43100,83 @@ var render = function() {
                       { staticClass: "form-group" },
                       [
                         _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Select Product Category")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.productForm.category_id,
+                                expression: "productForm.category_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.productForm.errors.has(
+                                "category_id"
+                              )
+                            },
+                            attrs: { name: "category_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.productForm,
+                                  "category_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                staticStyle: { display: "none" },
+                                attrs: { value: "", selected: "" }
+                              },
+                              [_vm._v("Select Category")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.categories, function(category) {
+                              return _c(
+                                "option",
+                                {
+                                  key: category.id,
+                                  domProps: { value: category.id }
+                                },
+                                [_vm._v(" " + _vm._s(category.name))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.productForm, field: "category_id" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { attrs: { for: "" } }, [
                           _vm._v("Product Price")
                         ]),
                         _vm._v(" "),
@@ -43227,7 +43424,17 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(" " + _vm._s(product.title) + " ")]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(" " + _vm._s(product.slug) + " ")]),
+                        _c("td", [
+                          product.category
+                            ? _c("span", [
+                                _vm._v(
+                                  " " + _vm._s(product.category.name) + " "
+                                )
+                              ])
+                            : _c("span", [
+                                _vm._v(" " + _vm._s(product.category_id) + " ")
+                              ])
+                        ]),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -43289,7 +43496,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v(" Title ")]),
         _vm._v(" "),
-        _c("th", [_vm._v(" Slug ")]),
+        _c("th", [_vm._v(" Category ")]),
         _vm._v(" "),
         _c("th", { staticStyle: { width: "170px" } }, [_vm._v(" Action ")])
       ])

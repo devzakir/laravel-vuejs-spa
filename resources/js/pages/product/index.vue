@@ -15,7 +15,7 @@
                                     <th style="width: 100px"> Id </th>
                                     <th> Image </th>
                                     <th> Title </th>
-                                    <th> Slug </th>
+                                    <th> Category </th>
                                     <th style="width: 170px"> Action </th>
                                 </tr>
                             </thead>
@@ -28,7 +28,10 @@
                                         </div>    
                                     </td>
                                     <td> {{ product.title }} </td>
-                                    <td> {{ product.slug }} </td>
+                                    <td> 
+                                        <span v-if="product.category"> {{ product.category.name }} </span>
+                                        <span v-else> {{ product.category_id }} </span>
+                                    </td>
                                     <td style="width: 170px">
                                         <router-link :to="{name: 'edit-product', params: {id: product.id}}" class="btn btn-primary btn-sm">Edit</router-link>
                                         <a @click.prevent="deleteProduct(product)" href="#" class="btn btn-danger btn-sm">Delete</a>
