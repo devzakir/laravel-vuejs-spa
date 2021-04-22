@@ -6,10 +6,14 @@
                 <div class="card">
                     <img :src="product.image" class="card-img-top" style="height: 150px; object-fit: cover; overflow: hidden" alt="...">
                     <div class="card-body">
+                        <div class="mb-2 d-flex justify-content-between">
+                            <label class="badge badge-danger mb-3">  {{ product.category.name }} </label>
+                            <h4>${{ product.price }}</h4>
+                        </div>
                         <h5 class="card-title">
                             {{ product.title }}
                         </h5>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <router-link :to="{ name: 'product-details', params: {slug: product.slug }}" class="btn btn-primary">View Product</router-link>
                     </div>
                 </div>
             </div>
